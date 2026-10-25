@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useLang } from "../i18n";
 
 const TITLE = "Wedding of Kevin & Meli";
-const MAPS = "https://maps.app.goo.gl/9sm9GPKbGhxce9yL9";
-const LOCATION = "Gereja Katolik Kristus Raja, Jl. Andalas No. 61, Makassar";
-// 14 Nov 2026, 19:00–21:00 GMT+8
+const MAPS = "https://maps.app.goo.gl/dGCSVLboviYuxy3x6";
+const LOCATION = "Claro Hotel Makassar, Makassar";
+// the reception: 14 Nov 2026, 19:00–21:00 GMT+8
 const START = "20261114T110000Z";
 const END = "20261114T130000Z";
 

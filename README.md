@@ -35,6 +35,22 @@ Columns: Timestamp · Name · Attendance (`Attend` / `Not attend`) · Wishes · 
 Only the name and the wish are shown on the page; attendance stays in the sheet.
 Each wish appears on the page as soon as it is in the sheet, so to hide one just delete or clear that row (or the **Wishes** cell).
 
+## Personal guest links
+
+Add `?to=Guest Name` to the invitation URL and the cover greets that guest ("Dear, Guest Name") and the RSVP name is pre-filled:
+
+```
+https://your-domain.com/?to=Budi%20Santoso
+```
+
+Spaces can be `%20` or `+`. In Google Sheets, build every link from a name column:
+
+```
+=HYPERLINK("https://your-domain.com/?to=" & ENCODEURL(A2), "Open")
+```
+
+Without `?to=` the cover says "Guest" / "Tamu".
+
 ## Background music
 
 The song is not part of this repository. To turn music on, add your own file at

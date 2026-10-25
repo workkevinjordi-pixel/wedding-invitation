@@ -567,6 +567,9 @@ img {
   letter-spacing: 0.2px;
 }
 .hero__cta strong {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   top: 28px;
   font-size: 17.6px;
   line-height: 18px;
@@ -1272,6 +1275,84 @@ img {
   font-style: italic;
   color: var(--white-31);
 }
+/* wishes: empty state — plain type on the same hairline as the wishes, no container */
+.wishes__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 22px 0 24px;
+  border-bottom: 1px solid var(--white-31);
+  animation: status-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.wishes__empty-title {
+  font-size: 13px;
+  line-height: 19.6px;
+  font-weight: 800;
+}
+.wishes__empty-text {
+  max-width: 280px;
+  font-size: 13.3px;
+  line-height: 19.6px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.wishes__cta {
+  margin-top: 8px;
+  padding: 0 0 2px;
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  transition: opacity 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.wishes__cta:hover {
+  opacity: 0.7;
+}
+.wishes__cta:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+}
+.wish--skeleton {
+  gap: 10px;
+}
+.sk {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0.07) 30%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.07) 70%);
+  background-size: 220% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.sk--name {
+  width: 38%;
+}
+.sk--line {
+  width: 90%;
+}
+.sk--short {
+  width: 24%;
+  height: 9px;
+}
+@keyframes shimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sk,
+  .wishes__empty {
+    animation: none;
+  }
+}
+
 .pager {
   display: flex;
   gap: 12px;

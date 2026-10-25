@@ -41,6 +41,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable} ${viaoda.variable} ${kapakana.variable}`}>
+      <head>
+        {/* the browser must not remember the scroll position: every visit and refresh starts on the first slide */}
+        <script dangerouslySetInnerHTML={{ __html: 'try{history.scrollRestoration="manual"}catch(e){}' }} />
+      </head>
       <body>{children}</body>
     </html>
   );

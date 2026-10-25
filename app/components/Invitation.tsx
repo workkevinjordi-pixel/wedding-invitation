@@ -1,5 +1,6 @@
 "use client";
 
+import { useGuest } from "../guest";
 import { Lines, useLang, type Key } from "../i18n";
 import Chrome from "./Chrome";
 import Countdown from "./Countdown";
@@ -75,7 +76,6 @@ function Person(props: {
 function Event(props: {
   title: Key;
   time?: string;
-  timeKey?: Key;
   venue: string;
   address: string;
   mapsUrl: string;
@@ -90,7 +90,7 @@ function Event(props: {
       <p className="event__date">
         <Lines k="event.date" />
       </p>
-      <p className="event__time">{props.timeKey ? t(props.timeKey) : props.time}</p>
+      <p className="event__time">{props.time}</p>
       <p className="event__venue">{props.venue}</p>
       <p className="event__addr">{props.address}</p>
       <a className="event__btn" href={props.mapsUrl} target="_blank" rel="noopener noreferrer">
@@ -102,6 +102,7 @@ function Event(props: {
 
 export default function Invitation() {
   const { t } = useLang();
+  const guest = useGuest();
   return (
     <>
       <Chrome />
@@ -126,10 +127,21 @@ export default function Invitation() {
 
           <div className="hero__cta">
             <small>{t("hero.dear")}</small>
-            <strong>{t("hero.guest")}</strong>
+            <strong style={guest.length > 26 ? { fontSize: "14px" } : guest.length > 18 ? { fontSize: "16px" } : undefined}>
+              {guest || t("hero.guest")}
+            </strong>
             <i />
             <em>{t("hero.note")}</em>
-            <a className="hero__btn" href="#verse" onClick={() => window.dispatchEvent(new CustomEvent("invitation:open"))}>
+            <a
+              className="hero__btn"
+              href="#verse"
+              onClick={(e) => {
+                // scroll without leaving "#verse" in the address, so a refresh still starts at the cover
+                e.preventDefault();
+                window.dispatchEvent(new CustomEvent("invitation:open"));
+                document.getElementById("verse")?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
               <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
                 <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z" />
               </svg>
@@ -223,7 +235,7 @@ export default function Invitation() {
         {/* 7 — Holy matrimony */}
         <section className="sec" id="event" aria-label="Holy matrimony">
           <BrushReveal className="accent-church" src={`${IMG}/church-white.webp`} />
-          <Event title="event.matrimony" time="19.00 WITA"
+          <Event title="event.matrimony" time="11.00 WITA"
             venue="Gereja Katolik Kristus Raja"
             address="Jl. Andalas No. 61, Makassar"
             mapsUrl="https://maps.app.goo.gl/9sm9GPKbGhxce9yL9"
@@ -233,7 +245,7 @@ export default function Invitation() {
         {/* 8 — Reception */}
         <section className="sec" aria-label="Reception">
           <BrushReveal className="accent-hotel" src={`${IMG}/hotel-white.webp`} />
-          <Event title="event.reception" timeKey="event.after"
+          <Event title="event.reception" time="19.00 WITA"
             venue="Claro Hotel Makassar"
             address="Makassar, South Sulawesi"
             mapsUrl="https://maps.app.goo.gl/dGCSVLboviYuxy3x6"

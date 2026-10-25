@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLang, type Key } from "../i18n";
 
-// Saturday, 14 November 2026, 19:00 GMT+8 — matches the date printed on the cover.
+// Saturday, 14 November 2026, 19:00 GMT+8 — the reception, which the countdown follows.
 const TARGET = new Date("2026-11-14T19:00:00+08:00").getTime();
 
 const units: Key[] = ["count.days", "count.hours", "count.minutes", "count.seconds"];

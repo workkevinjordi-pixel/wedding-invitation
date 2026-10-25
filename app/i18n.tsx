@@ -38,7 +38,6 @@ const en = {
 
   "event.date": "Saturday,\n14 November 2026",
   "event.matrimony": "HOLY MATRIMONY",
-  "event.after": "AFTER CEREMONY",
   "event.reception": "RECEPTION",
   "event.maps": "GOOGLE MAPS",
 
@@ -69,6 +68,9 @@ const en = {
   "rsvp.okNot": "Thank you for letting us know.",
 
   "wishes.title": "WISHES",
+  "wishes.emptyTitle": "No wishes yet",
+  "wishes.emptyText": "Be the first to leave a blessing for Meli & Kevin.",
+  "wishes.emptyCta": "Write a wish",
   "wishes.ago": "{d} days {h} hours ago",
   "wishes.now": "just now",
   "wishes.minutes": "{m} minutes ago",
@@ -130,7 +132,6 @@ const id: Record<Key, string> = {
 
   "event.date": "Sabtu,\n14 November 2026",
   "event.matrimony": "PEMBERKATAN NIKAH",
-  "event.after": "SETELAH ACARA",
   "event.reception": "RESEPSI",
   "event.maps": "GOOGLE MAPS",
 
@@ -161,6 +162,9 @@ const id: Record<Key, string> = {
   "rsvp.okNot": "Terima kasih telah memberi tahu kami.",
 
   "wishes.title": "UCAPAN",
+  "wishes.emptyTitle": "Belum ada ucapan",
+  "wishes.emptyText": "Jadilah yang pertama menuliskan doa dan ucapan untuk Meli & Kevin.",
+  "wishes.emptyCta": "Tulis ucapan",
   "wishes.ago": "{d} hari {h} jam yang lalu",
   "wishes.now": "baru saja",
   "wishes.minutes": "{m} menit yang lalu",
