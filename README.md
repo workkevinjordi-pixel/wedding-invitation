@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wedding invitation — Meli & Kevin
 
-## Getting Started
+A mobile-first digital wedding invitation built with Next.js (App Router), TypeScript and plain CSS.
 
-First, run the development server:
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Where things live
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/components/Invitation.tsx` — the slides, in order
+- `app/i18n.tsx` — all text, in English and Bahasa Indonesia (the ID | EN switch)
+- `app/gift-accounts.ts` — bank accounts and the WhatsApp number shown in the gift card
+- `app/components/Countdown.tsx` and `SaveDate.tsx` — the wedding date and time (14 Nov 2026, 19:00 GMT+8)
+- `public/assets/img` — photos (WebP), `public/assets/video` — the looping background video
 
-## Learn More
+## Background music
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The song is not part of this repository. To turn music on, add your own file at
+`public/assets/audio/background-music.mp3` (the player starts it on the first tap).

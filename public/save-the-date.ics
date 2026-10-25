@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kevin and Meli//Wedding//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:wedding-of-kevin-meli-20261114@invitation
+DTSTAMP:20260101T000000Z
+DTSTART:20261114T110000Z
+DTEND:20261114T130000Z
+SUMMARY:Wedding of Kevin & Meli
+LOCATION:Gereja Katolik Kristus Raja\, Jl. Andalas No. 61\, Makassar
+DESCRIPTION:Location: https://maps.app.goo.gl/9sm9GPKbGhxce9yL9
+END:VEVENT
+END:VCALENDAR
