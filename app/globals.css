@@ -2057,3 +2057,11 @@ html.motion body:not(.locked) .sec.is-in .reveal {
   letter-spacing: 0.3px;
   color: var(--white-50);
 }
+
+/* never show Safari's big native play button over the background video */
+.videobg__video::-webkit-media-controls,
+.videobg__video::-webkit-media-controls-start-playback-button,
+.videobg__video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
