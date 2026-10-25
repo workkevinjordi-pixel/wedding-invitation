@@ -28,8 +28,8 @@ const kapakana = Kapakana({
 });
 
 export const metadata: Metadata = {
-  title: "The Wedding of Meli & Kevin",
-  description: "You are invited to the wedding of Meli & Kevin — Saturday, 11 April 2026.",
+  title: "Wedding of Kevin & Meli",
+  description: "You are invited to the wedding of Kevin & Meli — Saturday, 14 November 2026.",
 };
 
 export const viewport: Viewport = {
