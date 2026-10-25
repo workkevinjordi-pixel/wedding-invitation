@@ -1771,7 +1771,163 @@ img {
   letter-spacing: 0.8px;
   white-space: nowrap;
 }
+/* ---------- motion: scroll choreography and micro-interactions ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 45;
+  width: min(100%, 430px);
+  height: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.78);
+  transform-origin: left center;
+  transform: scaleX(var(--sp, 0));
+}
+
+/* parallax layers: the script only sets --py; extra scale keeps their edges hidden */
+[data-px] {
+  will-change: translate;
+  translate: 0 var(--py, 0px);
+}
+.sec > .cover-img[data-px],
+.rsvp__photo[data-px],
+.gift__bg[data-px] {
+  scale: 1.14;
+}
+.bento__cell img[data-px] {
+  scale: 1.16;
+}
+
+/* reveals: hidden until their slide is on screen (and the splash has gone) */
+html.motion .reveal {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 0.9s ease,
+    translate 1s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+  transition-delay: calc(var(--d, 0) * 90ms), calc(var(--d, 0) * 90ms), 0s, 0s, 0s, 0s;
+}
+html.motion body:not(.locked) .sec.is-in .reveal {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* buttons: a little spring on hover and press */
+.pill,
+.hero__btn,
+.event__btn,
+.gift__cta,
+.gift__copy-btn,
+.form__choice,
+.lang button {
+  transition-property: background-color, border-color, color, scale, opacity;
+  transition-duration: 0.25s, 0.25s, 0.25s, 0.35s, 0.3s;
+  transition-timing-function: ease, ease, ease, cubic-bezier(0.34, 1.56, 0.64, 1), ease;
+}
+.pill:hover,
+.hero__btn:hover,
+.event__btn:hover,
+.gift__cta:hover {
+  scale: 1.04;
+}
+.pill:active,
+.hero__btn:active,
+.event__btn:active,
+.gift__cta:active,
+.gift__copy-btn:active,
+.form__choice:active,
+.lang button:active {
+  scale: 0.95;
+}
+
+/* form fields light up while they are being filled in */
+.form__label {
+  transition: color 0.25s ease, letter-spacing 0.3s ease;
+}
+.form__field:focus-within .form__label {
+  color: var(--white);
+  letter-spacing: 0.7px;
+}
+.form__input,
+.form__area {
+  transition: border-color 0.25s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.form__input:focus,
+.form__area:focus {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+.form__choice[aria-pressed="true"] {
+  animation: choice-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes choice-pop {
+  0% {
+    scale: 0.94;
+  }
+  100% {
+    scale: 1;
+  }
+}
+.form__status {
+  animation: status-in 0.45s ease both;
+}
+@keyframes status-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+/* countdown digits tick over */
+.count__cell b.tick {
+  animation: tick 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes tick {
+  from {
+    opacity: 0.2;
+    translate: 0 -7px;
+  }
+}
+
+/* the monogram breathes */
+.verse__logo img {
+  animation: float 7s ease-in-out infinite;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* gallery tiles zoom softly under a finger or cursor */
+.gal__item img {
+  transition: scale 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gal__item:hover img {
+  scale: 1.07;
+}
+.gal__item:active img {
+  scale: 1.02;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .verse__logo img,
+  .count__cell b.tick,
+  .form__choice[aria-pressed="true"],
+  .form__status {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

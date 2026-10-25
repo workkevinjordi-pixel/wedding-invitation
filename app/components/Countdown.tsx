@@ -33,7 +33,9 @@ export default function Countdown() {
     <div className="count__row" role="timer" aria-label="Time until the wedding">
       {units.map((u, i) => (
         <div className="count__cell" key={u}>
-          <b>{String(left[i]).padStart(2, "0")}</b>
+          <b key={left[i]} className="tick">
+            {String(left[i]).padStart(2, "0")}
+          </b>
           <span>{t(u)}</span>
         </div>
       ))}

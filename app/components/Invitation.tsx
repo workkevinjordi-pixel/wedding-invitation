@@ -6,6 +6,7 @@ import Countdown from "./Countdown";
 import Gallery from "./Gallery";
 import VideoBg from "./VideoBg";
 import MusicPlayer from "./MusicPlayer";
+import Motion from "./Motion";
 import BrushReveal from "./BrushReveal";
 import GiftCard from "./GiftCard";
 import SaveDate from "./SaveDate";
@@ -107,6 +108,7 @@ export default function Invitation() {
       <main className="inv" id="home">
         <VideoBg />
         <MusicPlayer />
+        <Motion />
         {/* 1 — Cover */}
         <section className="sec hero" aria-label="Cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
