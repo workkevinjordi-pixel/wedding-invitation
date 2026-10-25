@@ -114,7 +114,7 @@ export default function Invitation() {
         {/* 1 — Cover */}
         <section className="sec hero" aria-label="Cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="cover-img" src={`${IMG}/hero-bg.webp`} alt="Meli and Kevin" fetchPriority="high" decoding="async" />
+          <img className="cover-img" src={`${IMG}/hero-cover.webp`} alt="Meli and Kevin" fetchPriority="high" decoding="async" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="cover-img" style={{ opacity: 0.2 }} src={`${IMG}/hero-bg2.png`} alt="" />
           <div className="shade" style={{ opacity: 0.3 }} />
