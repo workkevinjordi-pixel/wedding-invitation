@@ -248,7 +248,7 @@ export default function Invitation() {
           <BrushReveal className="accent-hotel" src={`${IMG}/hotel-white.webp`} />
           <Event title="event.reception" time="19.00 WITA"
             venue="Claro Hotel Makassar"
-            address="Makassar, South Sulawesi"
+            address="Sandeq Ballroom"
             mapsUrl="https://maps.app.goo.gl/dGCSVLboviYuxy3x6"
           />
         </section>

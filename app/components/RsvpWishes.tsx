@@ -108,7 +108,9 @@ export default function RsvpWishes() {
             {t("rsvp.label")}
           </h2>
           <div className="rsvp__lead">
-            <p className="rsvp__title">{t("rsvp.title")}</p>
+            <p className="rsvp__title">
+              <Lines k="rsvp.title" />
+            </p>
             <p className="rsvp__copy">
               <Lines k="rsvp.text" />
             </p>

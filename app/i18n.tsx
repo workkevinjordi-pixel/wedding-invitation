@@ -27,7 +27,7 @@ const en = {
   "bride.parents": "Mr. Max C. Paembonan & Mrs. Sazthabina Ranteallo",
 
 
-  "count.title": "ALMOST TIME FOR\nOUR CELEBRATION",
+  "count.title": "THE BEGINNING\nOF FOREVER",
   "count.days": "Days",
   "count.hours": "Hours",
   "count.minutes": "Minutes",
@@ -50,7 +50,7 @@ const en = {
   "frame.note": "*We recommend updating your Instagram app to\nthe latest version.",
 
   "rsvp.label": "RSVP",
-  "rsvp.title": "WILL YOU ATTEND?",
+  "rsvp.title": "BE PART OF OUR\nSPECIAL DAY",
   "rsvp.text":
     "We kindly request your prompt response to confirm\nyour attendance at our upcoming event. Alongside\nyour RSVP, please take a moment to extend your\nwarm regards and best wishes.",
   "rsvp.name": "NAME",
@@ -118,15 +118,15 @@ const id: Record<Key, string> = {
   "verse.text":
     "“Sejak semula, pada waktu penciptaan, Allah\nmenjadikan mereka laki-laki dan perempuan.\nSebab itu laki-laki akan meninggalkan ayahnya\ndan ibunya dan bersatu dengan isterinya,\nsehingga keduanya itu menjadi satu daging.\nDemikianlah mereka bukan lagi dua, melainkan\nsatu. Karena itu, apa yang telah dipersatukan\nAllah, tidak boleh diceraikan manusia.”",
 
-  "groom.role": "SANG PRIA",
+  "groom.role": "MEMPELAI PRIA",
   "groom.relation": "Putra dari",
   "groom.parents": "Bapak Rudy Apa & Ibu Yulita Lambe",
-  "bride.role": "SANG WANITA",
+  "bride.role": "MEMPELAI WANITA",
   "bride.relation": "Putri dari",
   "bride.parents": "Bapak Max C. Paembonan & Ibu Sazthabina Ranteallo",
 
 
-  "count.title": "SEGERA TIBA HARI\nPERAYAAN KAMI",
+  "count.title": "AWAL DARI\nSELAMANYA",
   "count.days": "Hari",
   "count.hours": "Jam",
   "count.minutes": "Menit",
@@ -149,9 +149,9 @@ const id: Record<Key, string> = {
   "frame.note": "*Kami sarankan memperbarui aplikasi Instagram Anda\nke versi terbaru.",
 
   "rsvp.label": "RSVP",
-  "rsvp.title": "AKAN HADIRKAH ANDA?",
+  "rsvp.title": "JADILAH BAGIAN DARI\nHARI BAHAGIA KAMI",
   "rsvp.text":
-    "Mohon konfirmasi kehadiran Anda pada acara kami\nsecepatnya. Bersama RSVP Anda, sampaikan pula\nucapan dan doa terbaik untuk kami.",
+    "Mohon konfirmasi kehadiran Anda pada acara kami.\nBersama RSVP Anda juga dapat menyampaikan\nucapan dan doa terbaik untuk kami.",
   "rsvp.name": "NAMA",
   "rsvp.namePh": "Nama Tamu",
   "rsvp.attendance": "KEHADIRAN",

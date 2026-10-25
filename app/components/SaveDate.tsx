@@ -5,7 +5,7 @@ import { useLang } from "../i18n";
 
 const TITLE = "Wedding of Kevin & Meli";
 const MAPS = "https://maps.app.goo.gl/dGCSVLboviYuxy3x6";
-const LOCATION = "Claro Hotel Makassar, Makassar";
+const LOCATION = "Claro Hotel Makassar - Sandeq Ballroom, Makassar";
 // the reception: 14 Nov 2026, 19:00–21:00 GMT+8
 const START = "20261114T110000Z";
 const END = "20261114T130000Z";
