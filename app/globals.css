@@ -1191,6 +1191,17 @@ img {
   justify-content: center;
   padding: 13px 24px;
 }
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.form__submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
 .form__status {
   padding: 0;
   font-size: 12px;

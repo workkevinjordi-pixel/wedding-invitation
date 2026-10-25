@@ -63,12 +63,16 @@ const en = {
   "rsvp.wishesPh": "Write your wishes and blessings",
   "rsvp.submit": "SUBMIT",
   "rsvp.errNeed": "Please add your name and choose attendance.",
+  "rsvp.errSend": "We couldn't send that just now. Please try again.",
+  "rsvp.sending": "SENDING…",
   "rsvp.okAttend": "Thank you — we can't wait to see you!",
   "rsvp.okNot": "Thank you for letting us know.",
 
   "wishes.title": "WISHES",
   "wishes.ago": "{d} days {h} hours ago",
   "wishes.now": "just now",
+  "wishes.minutes": "{m} minutes ago",
+  "wishes.hours": "{h} hours ago",
   "wishes.prev": "← Prev",
   "wishes.next": "Next →",
 
@@ -151,12 +155,16 @@ const id: Record<Key, string> = {
   "rsvp.wishesPh": "Tulis ucapan dan doa Anda",
   "rsvp.submit": "KIRIM",
   "rsvp.errNeed": "Mohon isi nama Anda dan pilih kehadiran.",
+  "rsvp.errSend": "Belum berhasil terkirim. Silakan coba lagi.",
+  "rsvp.sending": "MENGIRIM…",
   "rsvp.okAttend": "Terima kasih — kami tak sabar bertemu Anda!",
   "rsvp.okNot": "Terima kasih telah memberi tahu kami.",
 
   "wishes.title": "UCAPAN",
   "wishes.ago": "{d} hari {h} jam yang lalu",
   "wishes.now": "baru saja",
+  "wishes.minutes": "{m} menit yang lalu",
+  "wishes.hours": "{h} jam yang lalu",
   "wishes.prev": "← Sebelumnya",
   "wishes.next": "Berikutnya →",
 
