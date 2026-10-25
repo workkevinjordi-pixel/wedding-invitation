@@ -2016,3 +2016,44 @@ html.motion body:not(.locked) .sec.is-in .reveal {
     transition: none;
   }
 }
+
+
+/* ---------- guest camera ---------- */
+.cam__body {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.cam__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+  border: 1px solid var(--white-56);
+  border-radius: 50%;
+}
+.cam__icon svg {
+  width: 22px;
+  height: 22px;
+}
+.cam__text {
+  margin-top: 18px;
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.cam__note {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  color: var(--white-50);
+}

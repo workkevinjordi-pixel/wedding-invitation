@@ -3,9 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLang } from "../i18n";
 
-const DEFAULT_VOLUME = 0.7;
+const DEFAULT_VOLUME = 0.5;
 const FADE_S = 0.7;
-const STORAGE_KEY = "invitation-volume";
 
 type WebkitWindow = Window & { webkitAudioContext?: typeof AudioContext };
 
@@ -97,11 +96,6 @@ export default function MusicPlayer() {
   const setVolume = useCallback((v: number) => {
     volumeRef.current = v;
     setVolumeState(v);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, String(v));
-    } catch {
-      /* storage unavailable */
-    }
     const ctx = ctxRef.current;
     const gain = gainRef.current;
     if (ctx && gain && wantedRef.current) {
@@ -111,19 +105,8 @@ export default function MusicPlayer() {
     }
   }, []);
 
-  // Restore the guest's volume, try to autoplay, and fall back to the first touch/click.
+  // Try to autoplay (always starting at 50%), and fall back to the first touch/click.
   useEffect(() => {
-    try {
-      const saved = parseFloat(window.localStorage.getItem(STORAGE_KEY) ?? "");
-      if (!Number.isNaN(saved) && saved >= 0 && saved <= 1) {
-        volumeRef.current = saved;
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- read after mount to avoid a hydration mismatch
-        setVolumeState(saved);
-      }
-    } catch {
-      /* storage unavailable */
-    }
-
     let done = false;
     const events: Array<keyof DocumentEventMap> = ["pointerup", "touchend", "click", "keydown"];
     const detach = () => events.forEach((e) => document.removeEventListener(e, onGesture, true));
@@ -136,6 +119,7 @@ export default function MusicPlayer() {
       }
     }
     events.forEach((e) => document.addEventListener(e, onGesture, true));
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- autoplay attempt on mount
     void start().then((ok) => {
       if (ok) {
         done = true;

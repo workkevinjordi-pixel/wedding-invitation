@@ -12,6 +12,7 @@ import BrushReveal from "./BrushReveal";
 import GiftCard from "./GiftCard";
 import SaveDate from "./SaveDate";
 import RsvpWishes from "./RsvpWishes";
+import CameraSlide from "./CameraSlide";
 
 const IMG = "/assets/img";
 
@@ -280,6 +281,9 @@ export default function Invitation() {
 
         {/* 15 — Gallery */}
         <Gallery />
+
+        {/* 15b — Guest camera */}
+        <CameraSlide />
 
         {/* 16 — Gift */}
         <section className="sec gift" aria-label="Wedding gift">
