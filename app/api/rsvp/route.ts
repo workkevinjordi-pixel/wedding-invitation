@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
 // Both values come from the environment (see README): the Apps Script web-app URL and a shared secret.
-const scriptUrl = () => process.env.GOOGLE_SCRIPT_URL;
-const secret = () => process.env.GOOGLE_SCRIPT_SECRET ?? "";
+// pasted values sometimes carry stray spaces, newlines or quotes
+const clean = (v?: string) => (v ?? "").trim().replace(/^["']|["']$/g, "").trim();
+const scriptUrl = () => clean(process.env.GOOGLE_SCRIPT_URL);
+const secret = () => clean(process.env.GOOGLE_SCRIPT_SECRET);
 
 // best-effort throttle per visitor (resets when the server instance restarts)
 const hits = new Map<string, number[]>();
