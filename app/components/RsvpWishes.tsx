@@ -147,11 +147,30 @@ export default function RsvpWishes() {
           <div className="form form--pending" aria-hidden="true" />
         ) : saved ? (
           <div className="form form--done" role="status" aria-live="polite">
-            <p className="form__done-title">{t("rsvp.doneTitle")}</p>
-            <p className="form__done-name">{saved.name}</p>
-            <p className="form__done-answer">{saved.attendance === "attend" ? t("rsvp.okAttend") : t("rsvp.okNot")}</p>
-            {saved.message && <p className="form__done-wish">“{saved.message}”</p>}
-            <p className="form__done-note">{t("rsvp.doneNote")}</p>
+            <svg className="done__icon" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M19 33l9 9 17-19" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <h3 className="done__title">{t("rsvp.doneTitle")}</h3>
+            <p className="done__sub">{t("rsvp.doneSub")}</p>
+            <dl className="done__card">
+              <div>
+                <dt>{t("rsvp.name")}</dt>
+                <dd>{saved.name}</dd>
+              </div>
+              <div>
+                <dt>{t("rsvp.doneStatus")}</dt>
+                <dd>{saved.attendance === "attend" ? t("rsvp.attend") : t("rsvp.notAttend")}</dd>
+              </div>
+              {saved.message && (
+                <div>
+                  <dt>{t("rsvp.wishes")}</dt>
+                  <dd>{saved.message}</dd>
+                </div>
+              )}
+            </dl>
+            <p className="done__text">{saved.attendance === "attend" ? t("rsvp.okAttend") : t("rsvp.okNot")}</p>
+            <p className="done__note">{t("rsvp.doneNote")}</p>
           </div>
         ) : (
         <form className="form" onSubmit={submit} noValidate>

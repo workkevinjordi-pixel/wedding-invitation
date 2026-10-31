@@ -1218,36 +1218,67 @@ img {
 .form--done {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 40px 24px 48px;
+  align-items: center;
+  padding: 48px 24px 56px;
   text-align: center;
 }
-.form__done-title {
-  font-size: 22px;
-  line-height: 30px;
+.done__icon {
+  color: var(--white);
+  animation: done-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes done-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+.done__title {
+  padding-top: 18px;
+  font-size: 30px;
+  line-height: 40px;
   font-weight: 700;
   letter-spacing: 0.8px;
 }
-.form__done-name {
-  font-size: 15px;
-  line-height: 22px;
-  font-weight: 500;
+.done__sub {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 300;
+  color: var(--white-56);
 }
-.form__done-answer {
+.done__card {
+  width: 100%;
+  margin: 24px 0 0;
+  border: 1px solid var(--white-56);
+  text-align: left;
+}
+.done__card > div {
+  padding: 12px 14px;
+}
+.done__card > div + div {
+  border-top: 1px solid var(--white-31);
+}
+.done__card dt {
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  color: var(--white-56);
+}
+.done__card dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19.6px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.done__text {
+  padding-top: 22px;
   font-size: 13px;
   line-height: 20px;
   font-weight: 300;
 }
-.form__done-wish {
-  padding: 10px 0 0;
-  font-size: 12.4px;
-  line-height: 18.2px;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--white-56);
-}
-.form__done-note {
-  padding-top: 14px;
+.done__note {
+  padding-top: 6px;
   font-size: 11px;
   line-height: 17px;
   font-weight: 300;
