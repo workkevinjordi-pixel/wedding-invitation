@@ -44,6 +44,3 @@ next-env.d.ts
 # personal tooling
 /.claude/
 
-# background music: a commercial recording, so it is not published with the code
-# (put your own file at public/assets/audio/background-music.mp3)
-/public/assets/audio/
