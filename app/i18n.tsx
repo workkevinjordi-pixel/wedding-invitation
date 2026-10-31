@@ -66,6 +66,8 @@ const en = {
   "rsvp.sending": "SENDING…",
   "rsvp.okAttend": "Thank you — we can't wait to see you!",
   "rsvp.okNot": "Thank you for letting us know.",
+  "rsvp.doneTitle": "RSVP RECEIVED",
+  "rsvp.doneNote": "Your response has been sent, so it can't be submitted again.",
 
   "wishes.title": "WISHES",
   "wishes.emptyTitle": "No wishes yet",
@@ -165,6 +167,8 @@ const id: Record<Key, string> = {
   "rsvp.sending": "MENGIRIM…",
   "rsvp.okAttend": "Terima kasih — kami tak sabar bertemu Anda!",
   "rsvp.okNot": "Terima kasih telah memberi tahu kami.",
+  "rsvp.doneTitle": "RSVP DITERIMA",
+  "rsvp.doneNote": "Konfirmasi Anda sudah terkirim, sehingga tidak dapat dikirim ulang.",
 
   "wishes.title": "UCAPAN",
   "wishes.emptyTitle": "Belum ada ucapan",

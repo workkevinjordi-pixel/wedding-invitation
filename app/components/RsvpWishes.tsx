@@ -9,6 +9,20 @@ type Wish = { name: string; message: string; at?: number };
 
 const PAGE_SIZE = 8;
 
+// remembered on this device so a returning guest sees their confirmation instead of the form
+type Saved = { name: string; attendance: "attend" | "not"; message: string };
+const SAVED_KEY = "rsvp-submitted";
+
+function readSaved(): Saved | null {
+  try {
+    const v = JSON.parse(window.localStorage.getItem(SAVED_KEY) ?? "null");
+    if (v && typeof v.name === "string" && (v.attendance === "attend" || v.attendance === "not")) {
+      return { name: v.name, attendance: v.attendance, message: typeof v.message === "string" ? v.message : "" };
+    }
+  } catch {}
+  return null;
+}
+
 export default function RsvpWishes() {
   const { t, lang } = useLang();
   const guest = useGuest();
@@ -19,6 +33,8 @@ export default function RsvpWishes() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"" | "need" | "attend" | "not" | "error">("");
   const [sending, setSending] = useState(false);
+  // undefined = not read from this device yet; null = nothing submitted
+  const [saved, setSaved] = useState<Saved | null | undefined>(undefined);
   const [now, setNow] = useState(0); // "now" lives in state so rendering stays pure; refreshed every minute
   // null = still loading; [] = nobody has written one yet
   const [wishes, setWishes] = useState<Wish[] | null>(null);
@@ -45,6 +61,11 @@ export default function RsvpWishes() {
   }, []);
 
   useEffect(() => {
+    const id = window.setTimeout(() => setSaved(readSaved()), 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
     const tick = () => setNow(Date.now());
     const first = window.setTimeout(tick, 0);
     const id = window.setInterval(tick, 60000);
@@ -66,7 +87,7 @@ export default function RsvpWishes() {
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (sending) return;
+    if (sending || saved) return;
     if (!name.trim() || !attend) {
       setStatus("need");
       return;
@@ -86,7 +107,12 @@ export default function RsvpWishes() {
         setWishes((w) => [{ name: name.trim(), message: message.trim(), at: Date.now() }, ...(w ?? [])]);
         setPage(1);
       }
-      setStatus(attend === "attend" ? "attend" : "not");
+      const done: Saved = { name: name.trim(), attendance: attend, message: message.trim() };
+      try {
+        window.localStorage.setItem(SAVED_KEY, JSON.stringify(done));
+      } catch {}
+      setSaved(done);
+      setStatus("");
       setTyped("");
       setAttend(null);
       setMessage("");
@@ -117,6 +143,17 @@ export default function RsvpWishes() {
           </div>
         </div>
 
+        {saved === undefined ? (
+          <div className="form form--pending" aria-hidden="true" />
+        ) : saved ? (
+          <div className="form form--done" role="status" aria-live="polite">
+            <p className="form__done-title">{t("rsvp.doneTitle")}</p>
+            <p className="form__done-name">{saved.name}</p>
+            <p className="form__done-answer">{saved.attendance === "attend" ? t("rsvp.okAttend") : t("rsvp.okNot")}</p>
+            {saved.message && <p className="form__done-wish">“{saved.message}”</p>}
+            <p className="form__done-note">{t("rsvp.doneNote")}</p>
+          </div>
+        ) : (
         <form className="form" onSubmit={submit} noValidate>
           <div className="form__field">
             <label className="form__label" htmlFor="rsvp-name">
@@ -187,6 +224,7 @@ export default function RsvpWishes() {
             {status === "need" ? t("rsvp.errNeed") : status === "error" ? t("rsvp.errSend") : status === "attend" ? t("rsvp.okAttend") : status === "not" ? t("rsvp.okNot") : ""}
           </p>
         </form>
+        )}
       </section>
 
       <section className="sec wishes" aria-labelledby="wishes-title">
