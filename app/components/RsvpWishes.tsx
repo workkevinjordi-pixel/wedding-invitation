@@ -11,11 +11,12 @@ const PAGE_SIZE = 8;
 
 // remembered on this device so a returning guest sees their confirmation instead of the form
 type Saved = { name: string; attendance: "attend" | "not"; message: string };
-const SAVED_KEY = "rsvp-submitted";
+// one entry per personal link (?to=Name), so another guest opening the invitation on the same device starts with an empty form
+const savedKey = (guest: string) => `rsvp-submitted:v2:${guest.trim().toLowerCase() || "_"}`;
 
-function readSaved(): Saved | null {
+function readSaved(guest: string): Saved | null {
   try {
-    const v = JSON.parse(window.localStorage.getItem(SAVED_KEY) ?? "null");
+    const v = JSON.parse(window.localStorage.getItem(savedKey(guest)) ?? "null");
     if (v && typeof v.name === "string" && (v.attendance === "attend" || v.attendance === "not")) {
       return { name: v.name, attendance: v.attendance, message: typeof v.message === "string" ? v.message : "" };
     }
@@ -61,9 +62,9 @@ export default function RsvpWishes() {
   }, []);
 
   useEffect(() => {
-    const id = window.setTimeout(() => setSaved(readSaved()), 0);
+    const id = window.setTimeout(() => setSaved(readSaved(guest)), 0);
     return () => window.clearTimeout(id);
-  }, []);
+  }, [guest]);
 
   useEffect(() => {
     const tick = () => setNow(Date.now());
@@ -109,7 +110,7 @@ export default function RsvpWishes() {
       }
       const done: Saved = { name: name.trim(), attendance: attend, message: message.trim() };
       try {
-        window.localStorage.setItem(SAVED_KEY, JSON.stringify(done));
+        window.localStorage.setItem(savedKey(guest), JSON.stringify(done));
       } catch {}
       setSaved(done);
       setStatus("");
