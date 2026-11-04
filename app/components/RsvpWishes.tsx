@@ -66,6 +66,44 @@ export default function RsvpWishes() {
     return () => window.clearTimeout(id);
   }, [guest]);
 
+  // On phones the keyboard covers the lower half of the screen: while a field has focus, drop the slide snapping
+  // (it fights the keyboard) and scroll the field into the visible part of the screen once the keyboard is up.
+  useEffect(() => {
+    const isField = (el: EventTarget | null): el is HTMLElement =>
+      el instanceof HTMLElement && (el.classList.contains("form__input") || el.classList.contains("form__area"));
+    let timer: number | undefined;
+    const reveal = (el: HTMLElement) => {
+      const vv = window.visualViewport;
+      const viewH = vv?.height ?? window.innerHeight;
+      const top = el.getBoundingClientRect().top - (vv?.offsetTop ?? 0);
+      const bottom = top + el.offsetHeight;
+      if (top < 80 || bottom > viewH - 16) {
+        window.scrollTo({ top: window.scrollY + top - Math.max(80, viewH * 0.25), behavior: "smooth" });
+      }
+    };
+    const onIn = (e: FocusEvent) => {
+      if (!isField(e.target)) return;
+      const el = e.target;
+      document.documentElement.classList.add("typing");
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => reveal(el), 350); // after the keyboard has slid up
+      window.visualViewport?.addEventListener("resize", () => reveal(el), { once: true });
+    };
+    const onOut = (e: FocusEvent) => {
+      if (!isField(e.target)) return;
+      window.clearTimeout(timer);
+      document.documentElement.classList.remove("typing");
+    };
+    document.addEventListener("focusin", onIn);
+    document.addEventListener("focusout", onOut);
+    return () => {
+      window.clearTimeout(timer);
+      document.documentElement.classList.remove("typing");
+      document.removeEventListener("focusin", onIn);
+      document.removeEventListener("focusout", onOut);
+    };
+  }, []);
+
   useEffect(() => {
     const tick = () => setNow(Date.now());
     const first = window.setTimeout(tick, 0);
