@@ -91,6 +91,8 @@ const en = {
   "cam.text": "Take photos with your own phone during the celebration. Every shot goes into one shared album that opens for everyone after the event.",
   "cam.open": "OPEN CAMERA",
   "cam.note": "No app to install, no sign-up.",
+  "cam.locked": "LOCKED",
+  "cam.opensIn": "Opens when the Holy Matrimony begins",
 
   "gift.title": "WEDDING\nGIFT",
   "gift.text": "The greatest gift is having you with us. If you’d like\nto give a token of love, we would be truly grateful.",
@@ -194,6 +196,8 @@ const id: Record<Key, string> = {
   "cam.text": "Abadikan momen lewat HP Anda selama acara. Semua foto masuk ke satu album bersama yang terbuka untuk semua tamu setelah acara selesai.",
   "cam.open": "BUKA KAMERA",
   "cam.note": "Tanpa aplikasi, tanpa daftar.",
+  "cam.locked": "TERKUNCI",
+  "cam.opensIn": "Terbuka saat Pemberkatan Nikah dimulai",
 
   "gift.title": "HADIAH\nPERNIKAHAN",
   "gift.text": "Kehadiran Anda adalah hadiah terindah bagi kami.\nBila berkenan memberikan tanda kasih,\nkami akan sangat berterima kasih.",

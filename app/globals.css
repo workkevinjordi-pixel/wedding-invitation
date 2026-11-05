@@ -2125,6 +2125,52 @@ html.motion body:not(.locked) .sec.is-in .reveal {
   letter-spacing: 0.2px;
   color: rgba(255, 255, 255, 0.8);
 }
+.cam__count {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+}
+.cam__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.cam__cell b {
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+.cam__cell span {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 300;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--white-50);
+}
+.cam__locked {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.cam__locked:hover,
+.cam__locked:active {
+  background: transparent;
+  scale: 1;
+}
+.cam__locked svg {
+  width: 14px;
+  height: 14px;
+}
 .cam__note {
   margin-top: 14px;
   font-size: 12px;
