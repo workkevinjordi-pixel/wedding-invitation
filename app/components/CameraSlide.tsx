@@ -8,6 +8,9 @@ import { Lines, useLang, type Key } from "../i18n";
 // The camera opens when the Holy Matrimony starts: Saturday, 14 November 2026, 11:00 GMT+8.
 const OPENS_AT = new Date("2026-11-14T11:00:00+08:00").getTime();
 
+// TEMPORARY, for testing: keeps the camera open before the event. Set to false (or delete) to bring the lock back.
+const UNLOCK_FOR_TESTING = true;
+
 const units: Key[] = ["count.days", "count.hours", "count.minutes", "count.seconds"];
 
 function split(ms: number) {
@@ -38,7 +41,7 @@ export default function CameraSlide() {
     };
   }, []);
 
-  const locked = now < OPENS_AT;
+  const locked = !UNLOCK_FOR_TESTING && now < OPENS_AT;
   const left = split(OPENS_AT - now);
 
   return (
