@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { saveCard } from "../card-image";
 import { atVenue, phaseAt } from "../checkin";
 import { useGuest, useSeat } from "../guest";
 import { useLang } from "../i18n";
@@ -31,6 +32,7 @@ export default function TableCard() {
   const [now, setNow] = useState(0); // 0 until mounted, so the server and the first render agree
   const [doneAt, setDoneAt] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState("");
   const toastTimer = useRef<number | undefined>(undefined);
 
@@ -55,6 +57,35 @@ export default function TableCard() {
     setToast(message);
     window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(""), 3800);
+  }
+
+  async function download() {
+    if (saving) return;
+    setSaving(true);
+    try {
+      await saveCard(
+        {
+          label: t("card.label"),
+          of: t("hero.of"),
+          date: t("hero.date"),
+          dear: t("card.dear"),
+          name,
+          tableLabel: t("card.table"),
+          table: table || "—",
+          paxLabel: t("card.pax"),
+          pax: pax ? t("card.paxUnit", { n: pax }) : "—",
+          whenLabel: t("card.when"),
+          when: t("card.date"),
+          venue: t("card.venue"),
+          note: t("card.note"),
+        },
+        name,
+      );
+    } catch {
+      say(t("card.errSend"));
+    } finally {
+      setSaving(false);
+    }
   }
 
   // the date is checked first, the location second
@@ -172,6 +203,13 @@ export default function TableCard() {
               {phase !== "open" && <p className="tcard__help">{t(phase === "after" ? "card.ended" : "card.notStarted")}</p>}
             </>
           )}
+
+          <button type="button" className="tcard__save" onClick={download} disabled={saving}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" />
+            </svg>
+            {saving ? t("card.saving") : t("card.download")}
+          </button>
 
           <p className="tcard__note">{t("card.note")}</p>
         </div>

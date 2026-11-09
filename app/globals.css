@@ -860,6 +860,34 @@ img {
   opacity: 1;
   translate: 0 0;
 }
+.tcard__save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px 16px 10px;
+  border: 1px solid var(--white-31);
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 0.2s ease, opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tcard__save:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.tcard__save:disabled {
+  opacity: 0.6;
+}
+.tcard__save svg {
+  width: 15px;
+  height: 15px;
+}
 .tcard__note {
   margin-top: 16px;
   font-size: 10.5px;
