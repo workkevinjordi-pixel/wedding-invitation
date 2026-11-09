@@ -9,9 +9,13 @@
  *     Copy the /exec URL into GOOGLE_SCRIPT_URL.
  *
  * Rows land in a tab called "RSVP": Timestamp | Name | Attendance | Wishes | Language.
+ * Check-ins land in a tab called "Check-in": Timestamp | Name | Table | Pax | Distance (m).
+ * After changing this file, Deploy -> Manage deployments -> edit -> New version, so the live URL uses it.
  */
 const SHEET_NAME = "RSVP";
 const HEADERS = ["Timestamp", "Name", "Attendance", "Wishes", "Language"];
+const CHECKIN_SHEET = "Check-in";
+const CHECKIN_HEADERS = ["Timestamp", "Name", "Table", "Pax", "Distance (m)"];
 
 function sheet_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -19,6 +23,17 @@ function sheet_() {
   if (!sh) sh = ss.insertSheet(SHEET_NAME);
   if (sh.getLastRow() === 0) {
     sh.appendRow(HEADERS);
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+
+function checkinSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(CHECKIN_SHEET);
+  if (!sh) sh = ss.insertSheet(CHECKIN_SHEET);
+  if (sh.getLastRow() === 0) {
+    sh.appendRow(CHECKIN_HEADERS);
     sh.setFrozenRows(1);
   }
   return sh;
@@ -39,7 +54,7 @@ function authorized_(secret) {
   return !!expected && secret === expected;
 }
 
-// a guest sends their RSVP
+// a guest sends their RSVP, or checks in at the venue
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
@@ -47,7 +62,12 @@ function doPost(e) {
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
-      sheet_().appendRow([new Date(), safe_(data.name), safe_(data.attendance), safe_(data.message), safe_(data.lang)]);
+      if (data.type === "checkin") {
+        // a guest arrived at the venue: its own tab, so the RSVP list stays clean
+        checkinSheet_().appendRow([new Date(), safe_(data.name), safe_(data.table), safe_(data.pax), safe_(data.distance)]);
+      } else {
+        sheet_().appendRow([new Date(), safe_(data.name), safe_(data.attendance), safe_(data.message), safe_(data.lang)]);
+      }
     } finally {
       lock.releaseLock();
     }

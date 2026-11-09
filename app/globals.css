@@ -612,6 +612,263 @@ img {
   height: 12px;
 }
 
+/* ---------- table card ---------- */
+.tcard__card {
+  --cut: 214px; /* where the card is "torn": photo height */
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  border: 1px solid var(--alto-10);
+  border-radius: 20px;
+  background: rgba(8, 8, 8, 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  /* notches on both sides of the tear line, like a ticket */
+  -webkit-mask: radial-gradient(circle 9px at 0 var(--cut), #0000 97%, #000), radial-gradient(circle 9px at 100% var(--cut), #0000 97%, #000);
+  -webkit-mask-composite: source-in;
+  mask: radial-gradient(circle 9px at 0 var(--cut), #0000 97%, #000), radial-gradient(circle 9px at 100% var(--cut), #0000 97%, #000);
+  mask-composite: intersect;
+}
+.tcard__top {
+  position: relative;
+  height: var(--cut);
+  overflow: hidden;
+}
+.tcard__top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 50%;
+}
+.tcard__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.05) 65%);
+}
+.tcard__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 12px 6px;
+  border: 1px solid var(--alto-10);
+  border-radius: 100px;
+  background: var(--white-31);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+.tcard__title {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+}
+.tcard__title p {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 10.5px;
+  line-height: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.tcard__title h2 {
+  margin-top: 4px;
+  font-family: var(--font-viaoda), serif;
+  font-size: 30px;
+  line-height: 1.05;
+  font-weight: 400;
+  color: #f3f2ee;
+  white-space: nowrap;
+}
+.tcard__title small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.tcard__body {
+  position: relative;
+  padding: 22px 20px 20px;
+  /* the tear line */
+  background-image: linear-gradient(to right, var(--white-31) 55%, transparent 0);
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+}
+.tcard__dear {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.tcard__name {
+  margin-top: 6px;
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tcard__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+.tcard__stats > div {
+  padding: 11px 14px 12px;
+  border: 1px solid var(--white-31);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  min-width: 0;
+}
+.tcard__stats span,
+.tcard__when span {
+  display: block;
+  font-size: 9.5px;
+  line-height: 12px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  color: var(--white-50);
+}
+.tcard__stats b {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tcard__when {
+  margin-top: 18px;
+}
+.tcard__when p {
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 18px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+.tcard__when span + p {
+  font-weight: 600;
+}
+.tcard__btn {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px 20px 12px;
+  border: 1px solid var(--alto-10);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-align: center;
+  transition: opacity 0.25s ease, scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.tcard__btn:hover:not(:disabled) {
+  scale: 1.02;
+}
+.tcard__btn:active:not(:disabled) {
+  scale: 0.97;
+}
+.tcard__btn:disabled {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white-31);
+  color: var(--white-56);
+  cursor: not-allowed;
+}
+.tcard__help {
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.2px;
+  color: var(--white-56);
+}
+.tcard__done {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--white-31);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  animation: status-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.tcard__done svg {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--black);
+}
+.tcard__done b {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 1.4px;
+}
+.tcard__done span {
+  display: block;
+  margin-top: 3px;
+  font-size: 11.5px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.75);
+}
+.tcard__toast {
+  position: absolute;
+  left: 78px;
+  right: 78px;
+  bottom: 22px;
+  padding: 13px 16px 12px;
+  border: 1px solid var(--alto-10);
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  opacity: 0;
+  translate: 0 12px;
+  pointer-events: none;
+  transition: opacity 0.3s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tcard__toast.show {
+  opacity: 1;
+  translate: 0 0;
+}
+.tcard__note {
+  margin-top: 16px;
+  font-size: 10.5px;
+  line-height: 15px;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  color: var(--white-50);
+}
+
 /* ---------- verse ---------- */
 .verse {
   height: 780.8px;

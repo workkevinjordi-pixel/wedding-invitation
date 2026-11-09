@@ -17,6 +17,7 @@ const LAYERS: [string, number | number[]][] = [
 const REVEALS = [
   ".hero__titles > *",
   ".hero__cta > *",
+  ".tcard__card",
   ".verse__logo img",
   ".verse__tag",
   ".verse__ref",

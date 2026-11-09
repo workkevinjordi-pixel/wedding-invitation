@@ -1,6 +1,7 @@
 "use client";
 
 import DesktopStage from "./DesktopStage";
+import TableCard from "./TableCard";
 import { useGuest } from "../guest";
 import { Lines, useLang, type Key } from "../i18n";
 import Chrome from "./Chrome";
@@ -137,12 +138,12 @@ export default function Invitation() {
             <em>{t("hero.note")}</em>
             <a
               className="hero__btn"
-              href="#verse"
+              href="#table"
               onClick={(e) => {
-                // scroll without leaving "#verse" in the address, so a refresh still starts at the cover
+                // scroll without leaving "#table" in the address, so a refresh still starts at the cover
                 e.preventDefault();
                 window.dispatchEvent(new CustomEvent("invitation:open"));
-                document.getElementById("verse")?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("table")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
@@ -153,7 +154,10 @@ export default function Invitation() {
           </div>
         </section>
 
-        {/* 2 — Verse */}
+        {/* 2 — Table card */}
+        <TableCard />
+
+        {/* 3 — Verse */}
         <section className="sec verse" id="verse" aria-label="Verse">
           <div className="verse__logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}

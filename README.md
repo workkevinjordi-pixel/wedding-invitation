@@ -51,6 +51,20 @@ Spaces can be `%20` or `+`. In Google Sheets, build every link from a name colum
 
 Without `?to=` the cover says "Guest" / "Tamu".
 
+### Table card (slide 2)
+
+The second slide is a table card with the guest's name, table and number of seats. Add them to the same link:
+
+```
+https://your-domain.com/?to=Budi%20Santoso&table=Mawar%207&pax=2
+```
+
+`table` is any short label (24 characters at most) and `pax` is a number from 1 to 99. The guest list can also supply them: set `GUEST_SHEET_CSV` (see `.env.example`) to the CSV export link of a sheet with the columns `NAMA UNDANGAN`, `PAX` and `NAMA MEJA`, and every `?to=Name` link finds its own table and pax. A link without any of it still shows the card, with a dash where the table or number would be. In Google Sheets, with name in A, table in B and pax in C:
+
+```
+=ARRAYFORMULA(IF(A2:A="", "", "https://your-domain.com/?to=" & ENCODEURL(A2:A) & "&table=" & ENCODEURL(B2:B) & "&pax=" & C2:C))
+```
+
 ## Background music
 
 The song is not part of this repository. To turn music on, add your own file at
