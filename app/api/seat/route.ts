@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 
-// The guest list lives in a Google Sheet, never in the code (the repository is public, and so is this address).
-// GUEST_SHEET_CSV is the sheet's CSV export link (README, "Table card"); the sheet must be readable by "anyone with the link".
-const sheetCsv = () => (process.env.GUEST_SHEET_CSV ?? "").trim().replace(/^["']|["']$/g, "").trim();
+// The guest lists live in Google Sheets, never in the code (the repository is public, and so are these addresses).
+// GUEST_SHEET_CSV holds one or more CSV export links (README, "Table card"), separated by spaces, commas or new lines.
+// Every sheet must be readable by "anyone with the link". When a name is in several sheets, the first sheet wins.
+const sheetUrls = () =>
+  (process.env.GUEST_SHEET_CSV ?? "")
+    .replace(/["']/g, " ")
+    .split(/[\s,;]+/)
+    .filter((u) => /^https?:\/\//.test(u));
 
 type Seat = { table: string; pax: number | null };
 
@@ -46,10 +51,7 @@ const titleCase = (s: string) => s.trim().toLowerCase().replace(/(^|[\s-])(\p{L}
 
 let cache: { at: number; seats: Map<string, Seat> } | null = null;
 
-async function seats() {
-  if (cache && Date.now() - cache.at < 60_000) return cache.seats;
-  const url = sheetCsv();
-  if (!url) throw new Error("GUEST_SHEET_CSV is not set");
+async function readSheet(url: string) {
   const res = await fetch(url, { cache: "no-store", redirect: "follow" });
   if (!res.ok) throw new Error("sheet not readable");
   const rows = parseCsv(await res.text());
@@ -58,15 +60,33 @@ async function seats() {
   const iPax = head.indexOf("PAX");
   const iTable = head.indexOf("NAMA MEJA");
   if (iName < 0) throw new Error("unexpected sheet layout");
-  const map = new Map<string, Seat>();
+  const found: [string, Seat][] = [];
   for (const r of rows.slice(1)) {
     const name = norm(r[iName] ?? "");
     if (!name) continue;
     const pax = Number.parseInt(r[iPax] ?? "", 10);
-    map.set(name, {
-      table: iTable >= 0 ? titleCase(r[iTable] ?? "").slice(0, 24) : "",
-      pax: Number.isFinite(pax) && pax >= 1 && pax <= 99 ? pax : null,
-    });
+    found.push([
+      name,
+      {
+        table: iTable >= 0 ? titleCase(r[iTable] ?? "").slice(0, 24) : "",
+        pax: Number.isFinite(pax) && pax >= 1 && pax <= 99 ? pax : null,
+      },
+    ]);
+  }
+  return found;
+}
+
+async function seats() {
+  if (cache && Date.now() - cache.at < 60_000) return cache.seats;
+  const urls = sheetUrls();
+  if (!urls.length) throw new Error("GUEST_SHEET_CSV is not set");
+  // one sheet being down must not take the others with it
+  const results = await Promise.allSettled(urls.map(readSheet));
+  if (results.every((r) => r.status === "rejected")) throw new Error("no sheet readable");
+  const map = new Map<string, Seat>();
+  for (const r of results) {
+    if (r.status !== "fulfilled") continue;
+    for (const [name, seat] of r.value) if (!map.has(name)) map.set(name, seat);
   }
   cache = { at: Date.now(), seats: map };
   return map;
