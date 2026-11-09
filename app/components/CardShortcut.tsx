@@ -3,25 +3,43 @@
 import { useEffect, useState } from "react";
 import { useLang } from "../i18n";
 
-/** A small button, always in reach, that jumps to the table card. It steps aside while the card itself is on screen. */
+/**
+ * A small button that jumps to the table card. It appears from the third slide (the groom) onward, never on the cover or the verse,
+ * and steps aside while the card itself is on screen.
+ */
 export default function CardShortcut() {
   const { t } = useLang();
   const [onCard, setOnCard] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const card = document.getElementById("table");
     if (!card) return;
     const io = new IntersectionObserver(([entry]) => setOnCard(entry.isIntersecting), { threshold: 0.5 });
     io.observe(card);
-    return () => io.disconnect();
+    // "started" once the third slide has reached the middle of the screen (and stays true further down)
+    const third = document.getElementById("couple");
+    const start = third
+      ? new IntersectionObserver(
+          ([entry]) => setStarted(entry.boundingClientRect.top <= (entry.rootBounds?.height ?? window.innerHeight) * 0.5),
+          { threshold: [0, 0.25, 0.5, 0.75, 1] },
+        )
+      : null;
+    if (third) start?.observe(third);
+    return () => {
+      io.disconnect();
+      start?.disconnect();
+    };
   }, []);
+
+  const hidden = onCard || !started;
 
   return (
     <button
       type="button"
-      className={`quick${onCard ? " quick--hide" : ""}`}
+      className={`quick${hidden ? " quick--hide" : ""}`}
       aria-label={t("card.quick")}
-      tabIndex={onCard ? -1 : 0}
+      tabIndex={hidden ? -1 : 0}
       onClick={() => document.getElementById("table")?.scrollIntoView({ behavior: "smooth" })}
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
