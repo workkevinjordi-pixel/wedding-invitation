@@ -1,6 +1,7 @@
 "use client";
 
 import DesktopStage from "./DesktopStage";
+import CardShortcut from "./CardShortcut";
 import TableCard from "./TableCard";
 import { useGuest } from "../guest";
 import { Lines, useLang, type Key } from "../i18n";
@@ -110,6 +111,7 @@ export default function Invitation() {
     <>
       <Chrome />
       <DesktopStage />
+      <CardShortcut />
       <main className="inv" id="home">
         <VideoBg />
         <MusicPlayer />
