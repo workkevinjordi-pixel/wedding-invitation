@@ -51,9 +51,9 @@ Spaces can be `%20` or `+`. In Google Sheets, build every link from a name colum
 
 Without `?to=` the cover says "Guest" / "Tamu".
 
-### Table card (slide 2)
+### Table card
 
-The second slide is a table card with the guest's name, table and number of seats. Add them to the same link:
+The slide after the RSVP and wishes is a table card with the guest's name, table and number of seats. Add them to the same link:
 
 ```
 https://your-domain.com/?to=Budi%20Santoso&table=Mawar%207&pax=2

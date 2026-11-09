@@ -138,12 +138,12 @@ export default function Invitation() {
             <em>{t("hero.note")}</em>
             <a
               className="hero__btn"
-              href="#table"
+              href="#verse"
               onClick={(e) => {
-                // scroll without leaving "#table" in the address, so a refresh still starts at the cover
+                // scroll without leaving "#verse" in the address, so a refresh still starts at the cover
                 e.preventDefault();
                 window.dispatchEvent(new CustomEvent("invitation:open"));
-                document.getElementById("table")?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("verse")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
@@ -154,10 +154,7 @@ export default function Invitation() {
           </div>
         </section>
 
-        {/* 2 — Table card */}
-        <TableCard />
-
-        {/* 3 — Verse */}
+        {/* 2 — Verse */}
         <section className="sec verse" id="verse" aria-label="Verse">
           <div className="verse__logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -284,6 +281,9 @@ export default function Invitation() {
 
         {/* 13–14 — RSVP + wishes */}
         <RsvpWishes />
+
+        {/* 14b — Table card */}
+        <TableCard />
 
         {/* 15 — Gallery */}
         <Gallery />
