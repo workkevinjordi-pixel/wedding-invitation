@@ -10,6 +10,17 @@ const OPENS_AT = new Date("2026-11-14T11:00:00+08:00").getTime();
 
 const units: Key[] = ["count.days", "count.hours", "count.minutes", "count.seconds"];
 
+// Local testing (localhost, or a phone on the same Wi-Fi) always has the camera open; the real site stays locked.
+function isLocalHost(host: string) {
+  return (
+    host === "localhost" ||
+    host.endsWith(".localhost") ||
+    host === "127.0.0.1" ||
+    host === "[::1]" ||
+    /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host)
+  );
+}
+
 function split(ms: number) {
   const s = Math.max(0, Math.floor(ms / 1000));
   return [Math.floor(s / 86400), Math.floor((s % 86400) / 3600), Math.floor((s % 3600) / 60), s % 60];
@@ -18,6 +29,7 @@ function split(ms: number) {
 /**
  * Slide with the button to the guest camera.
  * Locked, with a countdown, until the Holy Matrimony begins. The camera address is not even in the page until then.
+ * On localhost (staging) it is always open.
  * The guest's name from the invitation link (?to=) travels on as ?from=, so the camera
  * opens with the name already filled in. Without a name, the camera still opens normally.
  */
@@ -27,10 +39,14 @@ export default function CameraSlide() {
   const href = guest ? `${CAMERA_URL}?from=${encodeURIComponent(guest)}` : CAMERA_URL;
   // 0 until mounted, so the server and the first render agree: locked
   const [now, setNow] = useState(0);
+  const [local, setLocal] = useState(false);
 
   useEffect(() => {
     const tick = () => setNow(Date.now());
-    const first = window.setTimeout(tick, 0);
+    const first = window.setTimeout(() => {
+      setLocal(isLocalHost(window.location.hostname));
+      tick();
+    }, 0);
     const id = window.setInterval(tick, 1000);
     return () => {
       window.clearTimeout(first);
@@ -38,7 +54,7 @@ export default function CameraSlide() {
     };
   }, []);
 
-  const locked = now < OPENS_AT;
+  const locked = !local && now < OPENS_AT;
   const left = split(OPENS_AT - now);
 
   return (

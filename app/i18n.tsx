@@ -91,6 +91,7 @@ const en = {
   "cam.text": "Take photos with your own phone during the celebration. Every shot goes into one shared album that opens for everyone after the event.",
   "cam.open": "OPEN CAMERA",
   "cam.note": "No app to install, no sign-up.",
+  "desk.hint": "Scroll to explore",
   "cam.locked": "LOCKED",
   "cam.opensIn": "Opens when the Holy Matrimony begins",
 
@@ -196,6 +197,7 @@ const id: Record<Key, string> = {
   "cam.text": "Abadikan momen lewat HP Anda selama acara. Semua foto masuk ke satu album bersama yang terbuka untuk semua tamu setelah acara selesai.",
   "cam.open": "BUKA KAMERA",
   "cam.note": "Tanpa aplikasi, tanpa daftar.",
+  "desk.hint": "Gulir untuk menjelajah",
   "cam.locked": "TERKUNCI",
   "cam.opensIn": "Terbuka saat Pemberkatan Nikah dimulai",
 

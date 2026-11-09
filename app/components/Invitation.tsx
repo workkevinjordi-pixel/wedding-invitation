@@ -1,5 +1,6 @@
 "use client";
 
+import DesktopStage from "./DesktopStage";
 import { useGuest } from "../guest";
 import { Lines, useLang, type Key } from "../i18n";
 import Chrome from "./Chrome";
@@ -107,6 +108,7 @@ export default function Invitation() {
   return (
     <>
       <Chrome />
+      <DesktopStage />
       <main className="inv" id="home">
         <VideoBg />
         <MusicPlayer />
