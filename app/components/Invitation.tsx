@@ -133,7 +133,7 @@ export default function Invitation() {
 
           <div className="hero__cta">
             <small>{t("hero.dear")}</small>
-            <strong style={guest.length > 26 ? { fontSize: "14px" } : guest.length > 18 ? { fontSize: "16px" } : undefined}>
+            <strong style={guest.length > 60 ? { fontSize: "15px", lineHeight: "20px" } : undefined}>
               {guest || t("hero.guest")}
             </strong>
             <i />

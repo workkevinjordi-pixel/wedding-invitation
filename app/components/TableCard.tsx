@@ -163,7 +163,7 @@ export default function TableCard() {
           <p className="tcard__dear">{t("card.dear")}</p>
           <p
             className="tcard__name"
-            style={name.length > 26 ? { fontSize: "16px" } : name.length > 18 ? { fontSize: "20px" } : undefined}
+            style={name.length > 60 ? { fontSize: "20px", lineHeight: "26px" } : name.length > 30 ? { fontSize: "22px", lineHeight: "28px" } : undefined}
           >
             {name}
           </p>

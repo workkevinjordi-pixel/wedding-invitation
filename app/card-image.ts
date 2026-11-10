@@ -17,7 +17,8 @@ export type CardImage = {
 };
 
 const W = 1080;
-const H = 1500;
+const BASE_H = 1500;
+const NAME_LINE = 88; // line height of the guest name, in px
 const PHOTO_H = 700;
 const BG = "#0a0a0a";
 const PAD = 72;
@@ -57,6 +58,21 @@ function fit(ctx: CanvasRenderingContext2D, text: string, weight: number, size: 
   return s;
 }
 
+/** Breaks text into lines at spaces only: no hyphens, no split words. */
+function wrap(ctx: CanvasRenderingContext2D, text: string, maxW: number) {
+  const lines: string[] = [];
+  let line = "";
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    const next = line ? `${line} ${word}` : word;
+    if (line && ctx.measureText(next).width > maxW) {
+      lines.push(line);
+      line = word;
+    } else line = next;
+  }
+  if (line) lines.push(line);
+  return lines.length ? lines : [""];
+}
+
 function spaced(ctx: CanvasRenderingContext2D, px: number) {
   // letterSpacing is not in every browser yet; without it the text is simply a little tighter
   (ctx as CanvasRenderingContext2D & { letterSpacing?: string }).letterSpacing = `${px}px`;
@@ -67,6 +83,14 @@ export async function renderCard(c: CardImage): Promise<Blob> {
   const body = familyOf("body", "sans-serif");
   const jakarta = familyOf(".tcard__title p", body);
   const viaoda = familyOf(".tcard__title h2", "serif");
+
+  // the guest name wraps onto as many lines as it needs; the image grows by the extra lines
+  const probe = document.createElement("canvas").getContext("2d");
+  if (!probe) throw new Error("no canvas");
+  probe.font = `700 76px ${body}`;
+  const nameLines = wrap(probe, c.name, W - PAD * 2);
+  const extra = (nameLines.length - 1) * NAME_LINE;
+  const H = BASE_H + extra;
 
   const canvas = document.createElement("canvas");
   canvas.width = W;
@@ -140,8 +164,9 @@ export async function renderCard(c: CardImage): Promise<Blob> {
   y += 84;
   spaced(ctx, 0);
   ctx.fillStyle = "#fff";
-  fit(ctx, c.name, 700, 76, body, W - PAD * 2);
-  ctx.fillText(c.name, PAD, y);
+  ctx.font = `700 76px ${body}`;
+  nameLines.forEach((line, i) => ctx.fillText(line, PAD, y + i * NAME_LINE));
+  y += extra;
 
   // table and pax
   y += 56;

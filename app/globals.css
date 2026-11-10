@@ -586,49 +586,51 @@ img {
   letter-spacing: 0.4px;
   white-space: nowrap;
 }
+/* stacked from the bottom up, so a long guest name wraps onto more lines and grows upward without touching the button */
 .hero__cta {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 55px;
-  height: 130px;
+  bottom: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
   text-align: center;
 }
-.hero__cta > * {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
 .hero__cta small {
-  top: 10px;
   font-size: 12px;
   line-height: 12px;
   letter-spacing: 0.2px;
 }
 .hero__cta strong {
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  top: 28px;
+  max-width: 320px;
+  margin-top: 6px;
   font-size: 17.6px;
-  line-height: 18px;
+  line-height: 22px;
   font-weight: 700;
   letter-spacing: 0.2px;
+  /* wrap between words only: no ellipsis, no hyphens, no broken words */
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
 }
 .hero__cta i {
-  top: 52px;
   width: 250px;
+  margin-top: 6px;
   border-top: 1px solid var(--white-38);
 }
 .hero__cta em {
-  top: 61px;
+  margin-top: 8px;
   font-size: 10.5px;
   line-height: 11px;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 .hero__btn {
-  top: 84px;
+  margin-top: 13px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -753,9 +755,11 @@ img {
   line-height: 32px;
   font-weight: 700;
   letter-spacing: 0.2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
 }
 .tcard__stats {
   display: grid;
