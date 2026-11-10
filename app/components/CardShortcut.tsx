@@ -5,7 +5,7 @@ import { useLang } from "../i18n";
 
 /**
  * A small button that jumps to the table card. It appears from the third slide (the groom) onward, never on the cover or the verse,
- * and steps aside while the card itself is on screen.
+ * and steps aside while the card itself or the RSVP and wishes slides are on screen (the RSVP thank-you has its own button).
  */
 export default function CardShortcut() {
   const { t } = useLang();
@@ -13,10 +13,20 @@ export default function CardShortcut() {
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    const card = document.getElementById("table");
-    if (!card) return;
-    const io = new IntersectionObserver(([entry]) => setOnCard(entry.isIntersecting), { threshold: 0.5 });
-    io.observe(card);
+    const hideOn = ["table", "rsvp", "wishes"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    if (!hideOn.length) return;
+    const showing = new Set<Element>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) showing.add(e.target);
+          else showing.delete(e.target);
+        }
+        setOnCard(showing.size > 0);
+      },
+      { threshold: 0.5 },
+    );
+    hideOn.forEach((el) => io.observe(el));
     // "started" once the third slide has reached the middle of the screen (and stays true further down)
     const third = document.getElementById("couple");
     const start = third

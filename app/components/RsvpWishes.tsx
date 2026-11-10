@@ -209,6 +209,17 @@ export default function RsvpWishes() {
               )}
             </dl>
             <p className="done__text">{saved.attendance === "attend" ? t("rsvp.okAttend") : t("rsvp.okNot")}</p>
+            <button
+              type="button"
+              className="done__cardbtn"
+              onClick={() => document.getElementById("table")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h13A1.5 1.5 0 0 1 20 8.5V10a2 2 0 0 0 0 4v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 15.5V14a2 2 0 0 0 0-4Z" />
+                <path d="M14.5 7v10" strokeDasharray="1.6 2.2" />
+              </svg>
+              {t("rsvp.viewCard")}
+            </button>
             <p className="done__note">{t("rsvp.doneNote")}</p>
           </div>
         ) : (
@@ -285,7 +296,7 @@ export default function RsvpWishes() {
         )}
       </section>
 
-      <section className="sec wishes" aria-labelledby="wishes-title">
+      <section className="sec wishes" id="wishes" aria-labelledby="wishes-title">
         <div className="wishes__head">
           <h2 id="wishes-title">{t("wishes.title")}</h2>
           <i />

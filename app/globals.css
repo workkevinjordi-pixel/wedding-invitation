@@ -1603,6 +1603,35 @@ img {
   line-height: 20px;
   font-weight: 300;
 }
+.done__cardbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px 20px 12px;
+  border: 1px solid var(--white);
+  background: var(--white);
+  color: var(--black);
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease, scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.done__cardbtn:hover {
+  opacity: 0.88;
+}
+.done__cardbtn:active {
+  scale: 0.97;
+}
+.done__cardbtn svg {
+  width: 17px;
+  height: 17px;
+}
 .done__note {
   padding-top: 6px;
   font-size: 11px;
