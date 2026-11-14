@@ -33,6 +33,8 @@ export default function TableCard() {
   const [doneAt, setDoneAt] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [saving, setSaving] = useState(false);
+  // what the browser says about location access: the guest is asked when they tap Check In
+  const [perm, setPerm] = useState<"prompt" | "granted" | "denied">("prompt");
   const [toast, setToast] = useState("");
   const toastTimer = useRef<number | undefined>(undefined);
 
@@ -52,6 +54,26 @@ export default function TableCard() {
   }, [guest]);
 
   useEffect(() => () => window.clearTimeout(toastTimer.current), []);
+
+  // follow the browser's location permission, so a blocked setting is explained instead of failing quietly
+  useEffect(() => {
+    let status: PermissionStatus | null = null;
+    let gone = false;
+    const sync = () => status && setPerm(status.state as "prompt" | "granted" | "denied");
+    navigator.permissions
+      ?.query({ name: "geolocation" })
+      .then((s) => {
+        if (gone) return;
+        status = s;
+        sync();
+        s.addEventListener("change", sync);
+      })
+      .catch(() => undefined);
+    return () => {
+      gone = true;
+      status?.removeEventListener("change", sync);
+    };
+  }, []);
 
   function say(message: string) {
     setToast(message);
@@ -134,6 +156,7 @@ export default function TableCard() {
       },
       (err) => {
         setBusy(false);
+        if (err.code === err.PERMISSION_DENIED) setPerm("denied");
         say(err.code === err.PERMISSION_DENIED ? t("card.denied") : t("card.locFail"));
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 },
@@ -200,7 +223,13 @@ export default function TableCard() {
               <button type="button" className="tcard__btn" disabled={phase !== "open" || busy} onClick={checkIn}>
                 {busy ? t("card.checking") : t("card.checkin")}
               </button>
-              {phase !== "open" && <p className="tcard__help">{t(phase === "after" ? "card.ended" : "card.notStarted")}</p>}
+              {phase !== "open" ? (
+                <p className="tcard__help">{t(phase === "after" ? "card.ended" : "card.notStarted")}</p>
+              ) : perm === "denied" ? (
+                <p className="tcard__help tcard__help--warn">{t("card.locDenied")}</p>
+              ) : perm !== "granted" ? (
+                <p className="tcard__help">{t("card.locNeed")}</p>
+              ) : null}
             </>
           )}
 

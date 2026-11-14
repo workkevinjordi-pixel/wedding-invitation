@@ -843,6 +843,9 @@ img {
   letter-spacing: 0.2px;
   color: var(--white-56);
 }
+.tcard__help--warn {
+  color: #ffb4a8;
+}
 .tcard__done {
   display: flex;
   align-items: center;
