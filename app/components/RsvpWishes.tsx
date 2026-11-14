@@ -24,7 +24,7 @@ function readSaved(guest: string): Saved | null {
   return null;
 }
 
-export default function RsvpWishes() {
+export default function RsvpWishes({ wishesOnly = false }: { wishesOnly?: boolean }) {
   const { t, lang } = useLang();
   const guest = useGuest();
   // what the guest typed; until they type, the name from their personal link is used
@@ -164,6 +164,7 @@ export default function RsvpWishes() {
 
   return (
     <>
+      {!wishesOnly && (
       <section className="sec rsvp" id="rsvp" aria-labelledby="rsvp-title">
         <div className="rsvp__hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -295,6 +296,7 @@ export default function RsvpWishes() {
         </form>
         )}
       </section>
+      )}
 
       <section className="sec wishes" id="wishes" aria-labelledby="wishes-title">
         <div className="wishes__head">
@@ -316,6 +318,7 @@ export default function RsvpWishes() {
             <div className="wishes__empty">
               <p className="wishes__empty-title">{t("wishes.emptyTitle")}</p>
               <p className="wishes__empty-text">{t("wishes.emptyText")}</p>
+              {!wishesOnly && (
               <button
                 type="button"
                 className="wishes__cta"
@@ -327,6 +330,7 @@ export default function RsvpWishes() {
               >
                 {t("wishes.emptyCta")}
               </button>
+              )}
             </div>
           ) : (
             <>

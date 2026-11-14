@@ -22,6 +22,10 @@ const IMG = "/assets/img";
 // the Wedding Frame slide is built but switched off until the frame artwork is ready
 const SHOW_WEDDING_FRAME = false;
 
+// Event-day mode: the schedule, story and photo slides are gone, so guests land on what they need to check in:
+// cover -> table card -> guest camera -> wishes. Set to false to bring the full invitation back.
+const EVENT_DAY = true;
+
 function Instagram() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
@@ -111,7 +115,7 @@ export default function Invitation() {
     <>
       <Chrome />
       <DesktopStage />
-      <CardShortcut />
+      {!EVENT_DAY && <CardShortcut />}
       <main className="inv" id="home">
         <VideoBg />
         <MusicPlayer />
@@ -140,12 +144,12 @@ export default function Invitation() {
             <em>{t("hero.note")}</em>
             <a
               className="hero__btn"
-              href="#verse"
+              href={EVENT_DAY ? "#table" : "#verse"}
               onClick={(e) => {
-                // scroll without leaving "#verse" in the address, so a refresh still starts at the cover
+                // scroll without leaving the hash in the address, so a refresh still starts at the cover
                 e.preventDefault();
                 window.dispatchEvent(new CustomEvent("invitation:open"));
-                document.getElementById("verse")?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById(EVENT_DAY ? "table" : "verse")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
@@ -156,6 +160,8 @@ export default function Invitation() {
           </div>
         </section>
 
+        {!EVENT_DAY && (
+          <>
         {/* 2 — Verse */}
         <section className="sec verse" id="verse" aria-label="Verse">
           <div className="verse__logo">
@@ -280,7 +286,18 @@ export default function Invitation() {
             </p>
           </section>
         )}
+          </>
+        )}
 
+        {EVENT_DAY ? (
+          <>
+            {/* event day: table card, guest camera, wishes */}
+            <TableCard />
+            <CameraSlide />
+            <RsvpWishes wishesOnly />
+          </>
+        ) : (
+          <>
         {/* 13–14 — RSVP + wishes */}
         <RsvpWishes />
 
@@ -324,6 +341,8 @@ export default function Invitation() {
           </p>
           <p className="end__names">MELI &amp; KEVIN</p>
         </section>
+          </>
+        )}
       </main>
     </>
   );
